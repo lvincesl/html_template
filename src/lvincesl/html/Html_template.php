@@ -1,7 +1,7 @@
 <?php
 
 
-namespace lvincesl;
+namespace lvincesl\html;
 
 /**
  * Classe de gestion simple de Templates HTML
