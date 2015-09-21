@@ -33,7 +33,7 @@ class Html_Template
 
     public function set($name, $value)
     {
-        $this->templateContent = ereg_replace("{%".$name."%}", $value, $this->templateContent);
+        $this->templateContent = str_replace("{%".$name."%}", $value, $this->templateContent);
     }
 
     public function show()
