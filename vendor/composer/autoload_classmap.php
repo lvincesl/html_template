@@ -6,4 +6,5 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
+    'lvincesl\\html\\Html_template' => $baseDir . '/src/lvincesl/html/Html_template.php',
 );

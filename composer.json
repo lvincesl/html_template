@@ -1,11 +1,11 @@
 {
     "name": "lvincesl/html_template",
-    "description": "A simple template manager",
+    "description": "A simple template engine for PHP",
     "license": "CECILL-C",
     "authors": [
         {
             "name": "Lionel Vinceslas",
-            "email": "lionel.vinceslas@eurower.net"
+            "email": "lionel.vinceslas@gmail.com"
         }
     ],
     "minimum-stability": "dev",
