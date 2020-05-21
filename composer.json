@@ -1,5 +1,5 @@
 {
-    "name": "lvincesl/html_template",
+    "name": "lvinceslas/htmltemplate",
     "description": "A simple template engine for PHP",
     "license": "CECILL-C",
     "authors": [
@@ -14,7 +14,9 @@
     },
     "autoload": {
         "psr-4": {
-            "lvincesl\\html\\": "src/lvincesl/html/"
+            "Lvinceslas\\Html\\": "src/html/"
         }
+    },
+    "require-dev": {
     }
 }
