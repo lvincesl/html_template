@@ -1,2 +1,2 @@
-# html_template
+# htmlTemplate
 A simple template engine for PHP
