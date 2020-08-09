@@ -57,10 +57,11 @@ class HtmlTemplate
      */
     public function __construct(string $filepath)
     {
-        if (!is_string($filepath) || !file_exists($filepath)) 
-            throw new \InvalidArgumentException('Invalid Html template filepath !');
+        if (!file_exists($filepath)) 
+            throw new \InvalidArgumentException("Error : path '$filepath' does not exist !");
         if (!is_readable($filepath))
-            throw new \RuntimeException('Html template file not readable !');
+            throw new \RuntimeException("Error : file '$filepath' not readable !");
+
         $this->filepath = $filepath;
         $this->html = file_get_contents($filepath);
     }
@@ -90,10 +91,11 @@ class HtmlTemplate
      */
     public function setFilepath(string $filepath): bool
     {
-        if (!is_string($filepath) || !file_exists($filepath)) 
-            throw new \InvalidArgumentException('Invalid Html template filepath !');
+        if (!file_exists($filepath)) 
+            throw new \InvalidArgumentException("Error : path '$filepath' does not exist !");
         if (!is_readable($filepath))
-            throw new \RuntimeException('Html template file not readable !');
+            throw new \RuntimeException("Error : file '$filepath' not readable !");
+            
         $this->filepath = $filepath;
         $this->html = file_get_contents($filepath);
         return true;
@@ -105,16 +107,10 @@ class HtmlTemplate
      * @param string $value
      * @return bool
      */
-    public function set(string $name, string $value): bool
+    public function set(string $name, $value = null): bool
     {
-        if (!is_string($name)) {
-            throw new \TypeError('Invalid name : string expected !');
-        } elseif (!is_null($value) && !is_string($value)) {
-            throw new \TypeError('Invalid value : string expected !');
-        } else {
-            $this->html = str_replace("{%".$name."%}", $value, $this->html);
-            return true;
-        }
+        $this->html = str_replace("{%".$name."%}", $value, $this->html);
+        return true;
     }
 
     /**

@@ -6,6 +6,7 @@ require 'src/HtmlTemplate.php';
 
 use Lvinceslas\Html\HtmlTemplate;
 use PHPUnit\Framework\TestCase;
+use stdClass;
 
 class HtmlTemplateTest extends TestCase
 {
@@ -38,15 +39,15 @@ class HtmlTemplateTest extends TestCase
         $this->assertTrue(is_string($v->getFilepath()));
     }
 
-    public function testSetFilepathWithIntegerInsteadOfValidFilepath(): void
+    public function testSetFilepathWithInvalidFilepath(): void
     {
-        $this->expectException(\InvalidArgumentException::class);
+        $this->expectException(\TypeError::class);
         $v = new HtmlTemplate(__DIR__.'/test.html');
-        $v->setFilepath(12);
+        $v->setFilepath(new stdClass());
 
     }
 
-    public function testSetFilepathWithInvalidFilepath(): void
+    public function testSetFilepathWithUnfoundilepath(): void
     {
         $this->expectException(\InvalidArgumentException::class);
         $v = new HtmlTemplate(__DIR__.'/test.html');
@@ -59,5 +60,12 @@ class HtmlTemplateTest extends TestCase
         $v = new HtmlTemplate(__DIR__.'/test.html');
         $this->assertEquals(true, $v->setFilepath(__DIR__.'/test.html'));
 
+    }
+
+    public function testSetWithInvalidName(): void
+    {
+        $this->expectException(\TypeError::class);
+        $v = new HtmlTemplate(__DIR__.'/test.html');
+        $v->set(new stdClass());
     }
 }
