@@ -58,7 +58,7 @@ class HtmlTemplate
     public function __construct(string $filepath)
     {
         if (!is_string($filepath) || !file_exists($filepath)) 
-            throw new \InvalidArgumentException('Invalid Html template file path !');
+            throw new \InvalidArgumentException('Invalid Html template filepath !');
         if (!is_readable($filepath))
             throw new \RuntimeException('Html template file not readable !');
         $this->filepath = $filepath;
@@ -85,13 +85,13 @@ class HtmlTemplate
 
     /**
      * Set the Html template filepath
-     * @param string $filepath the HTML template file path
+     * @param string $filepath the HTML template filepath
      * @return bool
      */
     public function setFilepath(string $filepath): bool
     {
         if (!is_string($filepath) || !file_exists($filepath)) 
-            throw new \InvalidArgumentException('Invalid Html template file path !');
+            throw new \InvalidArgumentException('Invalid Html template filepath !');
         if (!is_readable($filepath))
             throw new \RuntimeException('Html template file not readable !');
         $this->filepath = $filepath;
@@ -101,13 +101,20 @@ class HtmlTemplate
 
     /**
      * Set the value of the given tag name
-     * @param string $tagName
-     * @param string $tagValue
-     * @return void
+     * @param string $name
+     * @param string $value
+     * @return bool
      */
-    public function set(string $tagName, string $tagValue): void
+    public function set(string $name, string $value): bool
     {
-        $this->html = str_replace("{%".$tagName."%}", $tagValue, $this->html);
+        if (!is_string($name)) {
+            throw new \TypeError('Invalid name : string expected !');
+        } elseif (!is_null($value) && !is_string($value)) {
+            throw new \TypeError('Invalid value : string expected !');
+        } else {
+            $this->html = str_replace("{%".$name."%}", $value, $this->html);
+            return true;
+        }
     }
 
     /**
