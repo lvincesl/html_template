@@ -45,24 +45,24 @@ namespace Lvinceslas\Html;
  * @package  lvinceslas/html
  * @author   Lionel Vinceslas <lionel.vinceslas@gmail.com>
  * @license  CeCILL-C https://cecill.info/licences/Licence_CeCILL-C_V1-en.txt
- * @link     https://packagist.org/packages/lvinceslas/htmltemplate
+ * @link     https://packagist.org/packages/lvinceslas/html
  */
 class HtmlTemplate
 {
-    private $htmlTemplateFilePath;
-    private $htmlTemplate;
+    private $filepath;
+    private $html;
     
     /**
-     * @param string $path the HTML template url
+     * @param string $filepath the HTML template filepath
      */
-    public function __construct(string $htmlTemplateFilePath)
+    public function __construct(string $filepath)
     {
-        if (!is_string($htmlTemplateFilePath) || !file_exists($htmlTemplateFilePath)) 
-            throw new \InvalidArgumentException('Invalid html template file path !');
-        if (!is_readable($htmlTemplateFilePath))
+        if (!is_string($filepath) || !file_exists($filepath)) 
+            throw new \InvalidArgumentException('Invalid Html template file path !');
+        if (!is_readable($filepath))
             throw new \RuntimeException('Html template file not readable !');
-        $this->htmlTemplateFilePath = $htmlTemplateFilePath;
-        $this->htmlTemplate = file_get_contents($htmlTemplateFilePath);
+        $this->filepath = $filepath;
+        $this->html = file_get_contents($filepath);
     }
 
     /**
@@ -71,18 +71,43 @@ class HtmlTemplate
      */
     public function __toString(): string
     {
-        return $this->htmlTemplate;
+        return $this->html;
+    }
+
+    /**
+     * Get the Html template filepath
+     * @return string
+     */
+    public function getFilepath(): string
+    {
+        return $this->filepath;
+    }
+
+    /**
+     * Set the Html template filepath
+     * @param string $filepath the HTML template file path
+     * @return bool
+     */
+    public function setFilepath(string $filepath): bool
+    {
+        if (!is_string($filepath) || !file_exists($filepath)) 
+            throw new \InvalidArgumentException('Invalid Html template file path !');
+        if (!is_readable($filepath))
+            throw new \RuntimeException('Html template file not readable !');
+        $this->filepath = $filepath;
+        $this->html = file_get_contents($filepath);
+        return true;
     }
 
     /**
      * Set the value of the given tag name
-     * @param string $tag
-     * @param string $value
+     * @param string $tagName
+     * @param string $tagValue
      * @return void
      */
     public function set(string $tagName, string $tagValue): void
     {
-        $this->htmlTemplate = str_replace("{%".$tagName."%}", $tagValue, $this->htmlTemplate);
+        $this->html = str_replace("{%".$tagName."%}", $tagValue, $this->html);
     }
 
     /**
@@ -91,6 +116,6 @@ class HtmlTemplate
      */
     public function show(): void
     {
-        echo $this->htmlTemplate;
+        echo $this->html;
     }
 }
